@@ -1,27 +1,24 @@
 package main
 
 import (
-	"net/http"
+	"log"
+	"os"
 
-	"github.com/a-h/templ"
-	"github.com/andersonribeir0/ssr-htmx/components/patients"
-	patientsComp "github.com/andersonribeir0/ssr-htmx/components/patients"
+	"github.com/andersonribeir0/ssr-htmx/handlers"
+	"github.com/joho/godotenv"
+	echo "github.com/labstack/echo/v4"
 )
 
 func main() {
-	patients := []patients.Patient{
-		{
-			Name:  "John Jimenez",
-			Email: "jj@kkj.com",
-		},
-		{
-			Name:  "Lucy Lil",
-			Email: "ll@ll.com",
-		},
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
 	}
 
-	patientListComp := patientsComp.PatientList(patients)
-	http.Handle("/", templ.Handler(root(patientListComp)))
+	e := echo.New()
+	h := handlers.NewAPI()
 
-	http.ListenAndServe(":8080", nil)
+	e.GET("/", h.RootHandler())
+
+	e.Logger.Fatal(e.Start(os.Getenv("HTTP_LISTEN_ADDR")))
 }
