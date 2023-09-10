@@ -22,7 +22,7 @@ func PatientList(patients []Patient) templ.Component {
 			var_1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, err = templBuffer.WriteString("<div class=\"container mx-auto mt-20 mb-8\"><h1 class=\"text-blue-500 text-5xl text-center\">")
+		_, err = templBuffer.WriteString("<div id=\"patientList\" class=\"container mx-auto mt-20 mb-8\"><h1 class=\"text-blue-500 text-5xl text-center\">")
 		if err != nil {
 			return err
 		}
@@ -31,20 +31,20 @@ func PatientList(patients []Patient) templ.Component {
 		if err != nil {
 			return err
 		}
-		_, err = templBuffer.WriteString("</h1><table class=\"min-w-full border border-gray-300\"><thead><tr><th class=\"px-6 py-3 bg-gray-200 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider\">")
+		_, err = templBuffer.WriteString("</h1><div class=\"flex justify-end mb-4\"><button class=\"bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded\" hx-get=\"/patient/add\" hx-swap=\"outerHTML\">")
 		if err != nil {
 			return err
 		}
-		var_3 := `Name`
+		var_3 := `Add New Patient`
 		_, err = templBuffer.WriteString(var_3)
 		if err != nil {
 			return err
 		}
-		_, err = templBuffer.WriteString("</th><th class=\"px-6 py-3 bg-gray-200 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider\">")
+		_, err = templBuffer.WriteString("</button></div><table class=\"min-w-full border border-gray-300\"><thead><tr><th class=\"px-6 py-3 bg-gray-200 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider\">")
 		if err != nil {
 			return err
 		}
-		var_4 := `Email`
+		var_4 := `Name`
 		_, err = templBuffer.WriteString(var_4)
 		if err != nil {
 			return err
@@ -53,8 +53,17 @@ func PatientList(patients []Patient) templ.Component {
 		if err != nil {
 			return err
 		}
-		var_5 := `Actions`
+		var_5 := `Email`
 		_, err = templBuffer.WriteString(var_5)
+		if err != nil {
+			return err
+		}
+		_, err = templBuffer.WriteString("</th><th class=\"px-6 py-3 bg-gray-200 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider\">")
+		if err != nil {
+			return err
+		}
+		var_6 := `Actions`
+		_, err = templBuffer.WriteString(var_6)
 		if err != nil {
 			return err
 		}

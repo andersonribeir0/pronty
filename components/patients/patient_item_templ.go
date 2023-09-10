@@ -22,7 +22,15 @@ func PatientItem(patient Patient) templ.Component {
 			var_1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, err = templBuffer.WriteString("<tr><td class=\"px-6 py-4 whitespace-no-wrap border-b border-gray-300\">")
+		_, err = templBuffer.WriteString("<tr id=\"")
+		if err != nil {
+			return err
+		}
+		_, err = templBuffer.WriteString(templ.EscapeString(patient.ID))
+		if err != nil {
+			return err
+		}
+		_, err = templBuffer.WriteString("\"><td class=\"px-6 py-4 whitespace-no-wrap border-b border-gray-300\">")
 		if err != nil {
 			return err
 		}
@@ -40,7 +48,7 @@ func PatientItem(patient Patient) templ.Component {
 		if err != nil {
 			return err
 		}
-		_, err = templBuffer.WriteString("</td><td class=\"px-6 py-4 whitespace-no-wrap border-b border-gray-300\"><button class=\"text-blue-600 hover:text-blue-800 \"><i class=\"fas fa-edit\"></i></button><button class=\"text-red-600 hover:text-red-800\"><i class=\"fas fa-trash-alt\"></i></button><button class=\"text-green-600 hover:text-green-800\"><i class=\"fa-solid fa-notes-medical\"></i></button></td></tr>")
+		_, err = templBuffer.WriteString("</td><td class=\"px-6 py-4 whitespace-no-wrap border-b border-gray-300\"><button class=\"text-blue-600 hover:text-blue-800 \"><i class=\"fas fa-edit\"></i></button><button class=\"text-red-600 hover:text-red-800\" hx-delete=\"/patient\" hx-target=\"closest tr\" hx-swap=\"outerHTML swap:1s\" hx-confirm=\"Are you sure?\"><i class=\"fas fa-trash-alt\"></i></button><button class=\"text-green-600 hover:text-green-800\"><i class=\"fa-solid fa-notes-medical\"></i></button></td></tr>")
 		if err != nil {
 			return err
 		}

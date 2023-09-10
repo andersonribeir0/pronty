@@ -4,24 +4,15 @@ import (
 	"github.com/a-h/templ"
 	cmpt "github.com/andersonribeir0/ssr-htmx/components"
 	patientsComp "github.com/andersonribeir0/ssr-htmx/components/patients"
+	"github.com/andersonribeir0/ssr-htmx/domain"
 	echo "github.com/labstack/echo/v4"
 )
 
 func (a *API) RootHandler() echo.HandlerFunc {
 	return func(c echo.Context) error {
-		var patients []patientsComp.Patient
-
-		users, err := a.db.FindAll()
+		patients, err := domain.FindAllPatients(a.db)
 		if err != nil {
-			c.Logger().Error(err)
-			return c.NoContent(echo.ErrNotFound.Code)
-		}
-
-		for _, v := range users {
-			patients = append(patients, patientsComp.Patient{
-				Name:  v.Name,
-				Email: v.Email,
-			})
+			c.Error(err)
 		}
 
 		patientListComp := patientsComp.PatientList(patients)

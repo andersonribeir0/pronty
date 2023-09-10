@@ -30,6 +30,18 @@ func NewDB(connectionS string) *DB {
 	return &DB{DB: databaseConn}
 }
 
+func (db *DB) DeleteUserById(id string) error {
+	deleteStmt := `
+		DELETE FROM users WHERE id=$1
+	`
+	_, err := db.Exec(deleteStmt, id)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func (db *DB) InsertUser(user *User) error {
 	insertStmt := `
         INSERT INTO users (id, name, document_number, email)
