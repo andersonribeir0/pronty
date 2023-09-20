@@ -19,9 +19,8 @@ func main() {
 	h := handlers.NewAPI()
 
 	e.GET("/", h.RootHandler())
-	e.GET("/patient/add", h.HandleAddUserForm())
-	e.POST("/patient/add", h.HandleAddUser())
-	e.DELETE("/patient", h.HandlerDeleteUser())
-
+	e.GET("/user/add", h.HandleAddUserForm())
+	e.POST("/api/user/add", h.HandleAddUser())
+	e.DELETE("/api/user", h.HandlerDeleteUser())
 	e.Logger.Fatal(e.Start(os.Getenv("HTTP_LISTEN_ADDR")))
 }

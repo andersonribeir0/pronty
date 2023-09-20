@@ -1,9 +1,8 @@
-package patients
+package user
 
-templ PatientForm() {
-	<div id="patientForm" class="container mx-auto mt-8">
-		<form class="mt-4" id="addPatientForm" action="/patient/add" method="POST" hx-post="/patient/add" hx-target="#patientList" hx-select="#patientList" hx-swap="outerHTML">
-			<h1 class="text-blue-500 text-5xl text-center">Add New Patient</h1>
+templ UserForm(formTarget string) {
+	<div id="userForm" class="container mx-auto mt-8">
+		<form class="mt-4" id="addUserForm" action="/user/add" method="POST" hx-post="api/user/add" hx-target={formTarget} hx-swap="afterbegin">
 			<div class="mb-4">
 				<label for="name" class="block text-gray-700 text-sm font-bold mb-2">Name</label>
 				<input type="text" id="name" name="name" class="form-input w-full rounded-md shadow-sm" placeholder="Name" required />
@@ -17,8 +16,13 @@ templ PatientForm() {
 				<input type="email" id="email" name="email" class="form-input w-full rounded-md shadow-sm" placeholder="john@example.com" required />
 			</div>
 			<div class="text-center">
-				<button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Add Patient</button>
+				<div class="container mx-auto px-32 py-2">
+					<div class="flex justify-between">
+						<button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded w-1/2">Add User</button>
+						<a href="/" class="bg-gray-300 hover:bg-gray-400 text-gray-700 font-bold py-1 px-4 rounded w-1/2 inline-block">Cancel</a>
+					</div>
+				</div>
 			</div>
-			</form>
+		</form>
 	</div>
 }

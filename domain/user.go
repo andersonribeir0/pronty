@@ -1,23 +1,23 @@
 package domain
 
 import (
-	"github.com/andersonribeir0/ssr-htmx/components/patients"
+	"github.com/andersonribeir0/ssr-htmx/components/user"
 	"github.com/andersonribeir0/ssr-htmx/db"
 )
 
-func FindAllPatients(ds *db.DB) (patientList []patients.Patient, err error) {
+func FindAllUsers(ds *db.DB) (userList []user.User, err error) {
 	users, err := ds.FindAll()
 	if err != nil {
 		return nil, err
 	}
 
 	for _, v := range users {
-		patientList = append(patientList, patients.Patient{
+		userList = append(userList, user.User{
 			ID:    v.ID,
 			Name:  v.Name,
 			Email: v.Email,
 		})
 	}
 
-	return patientList, nil
+	return userList, nil
 }

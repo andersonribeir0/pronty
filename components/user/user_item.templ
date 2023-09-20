@@ -1,14 +1,14 @@
-package patients
+package user
 
-templ PatientItem(patient Patient) {
-    <tr id={ patient.ID }>
-        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-300">{ patient.Name }</td>
-        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-300">{ patient.Email }</td>
+templ UserItem(user User) {
+    <tr id={ user.ID }>
+        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-300">{ user.Name }</td>
+        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-300">{ user.Email }</td>
         <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-300">
             <button class="text-blue-600 hover:text-blue-800 ">
                 <i class="fas fa-edit"></i>
             </button>
-            <button class="text-red-600 hover:text-red-800" hx-delete="/patient" hx-target="closest tr" hx-swap="outerHTML swap:1s" hx-confirm="Are you sure?">
+            <button class="text-red-600 hover:text-red-800" hx-delete="api/user" hx-target="closest tr" hx-swap="outerHTML swap:500ms" hx-confirm="Are you sure?">
                 <i class="fas fa-trash-alt"></i>
             </button>
             <button class="text-green-600 hover:text-green-800">

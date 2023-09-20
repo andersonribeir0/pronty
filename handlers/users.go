@@ -6,9 +6,8 @@ import (
 	"unicode"
 
 	"github.com/a-h/templ"
-	patientsComp "github.com/andersonribeir0/ssr-htmx/components/patients"
+	usersComp "github.com/andersonribeir0/ssr-htmx/components/user"
 	"github.com/andersonribeir0/ssr-htmx/db"
-	"github.com/andersonribeir0/ssr-htmx/domain"
 	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
 )
@@ -22,9 +21,8 @@ func (a *API) HandlerDeleteUser() echo.HandlerFunc {
 
 func (a *API) HandleAddUserForm() echo.HandlerFunc {
 	return func(c echo.Context) error {
-		form := patientsComp.PatientForm()
+		form := usersComp.UserForm("#userRows")
 		t := templ.Handler(form)
-
 		return t.Component.Render(c.Request().Context(), c.Response().Writer)
 	}
 }
@@ -37,26 +35,23 @@ func (a *API) HandleAddUser() echo.HandlerFunc {
 			return c.JSON(http.StatusBadRequest, map[string]any{"error": "invalid document number"})
 		}
 
-		patient := &db.User{
+		user := &db.User{
 			ID:             uuid.NewString(),
 			Name:           c.FormValue("name"),
 			DocumentNumber: docNumber,
 			Email:          c.FormValue("email"),
 		}
 
-		err = a.db.InsertUser(patient)
+		err = a.db.InsertUser(user)
 		if err != nil {
 			return c.Redirect(http.StatusBadGateway, "/")
 		}
 
-		patients, err := domain.FindAllPatients(a.db)
-		if err != nil {
-			c.Error(err)
-		}
-
-		patientList := patientsComp.PatientList(patients)
-
-		t := templ.Handler(patientList)
+		t := templ.Handler(usersComp.UserItem(usersComp.User{
+			ID:    user.ID,
+			Name:  user.Name,
+			Email: user.Email,
+		}))
 		return t.Component.Render(c.Request().Context(), c.Response().Writer)
 	}
 }
