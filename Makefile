@@ -2,6 +2,7 @@ generate:
 	@templ generate ./...
 
 build: generate
+	@NODE_ENV=production npx tailwindcss build -o ./misc/output.css
 	@go build -o ./bin/app
 
 run: build
@@ -16,3 +17,5 @@ create-migration:
 migrate-rollback:
 	@migrate -database "postgres://postgres:postgres@localhost:5433/pronty?sslmode=disable" -path ./db/migrations down
 
+tailwind:
+	@cd misc/; npx tailwindcss-cli@latest build -i input.css -o ../static/output.css

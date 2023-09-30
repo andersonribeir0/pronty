@@ -17,10 +17,11 @@ func main() {
 
 	e := echo.New()
 	h := handlers.NewAPI()
+	e.Static("/static", "./static")
 
-	e.GET("/", h.RootHandler())
-	e.GET("/user/add", h.HandleAddUserForm())
-	e.POST("/api/user/add", h.HandleAddUser())
-	e.DELETE("/api/user", h.HandlerDeleteUser())
+	e.GET("/", h.CreateHandler(handlers.HandleHome))
+	e.GET("/user/add", h.CreateHandler(handlers.HandleAddUserForm))
+	e.POST("/api/user/add", h.CreateHandler(handlers.HandleAddUser))
+	e.DELETE("/api/user", h.CreateHandler(handlers.HandleDeleteUser))
 	e.Logger.Fatal(e.Start(os.Getenv("HTTP_LISTEN_ADDR")))
 }
