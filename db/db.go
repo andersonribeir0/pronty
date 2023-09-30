@@ -71,6 +71,36 @@ func (db *DB) FindUserByEmail(value string) (*User, error) {
 	return &user, nil
 }
 
+func (db *DB) FindUserByID(id string) (*User, error) {
+	query := `
+        SELECT id, name, document_number, email
+        FROM users
+        WHERE id=$1
+    `
+
+	rows, err := db.Query(query, id)
+	if err == sql.ErrNoRows {
+		return nil, nil
+	}
+
+	if err != nil {
+		return nil, err
+	}
+
+	for rows.Next() {
+		var user User
+
+		err := rows.Scan(&user.ID, &user.Name, &user.DocumentNumber, &user.Email)
+		if err != nil {
+			return nil, err
+		}
+
+		return &user, nil
+	}
+
+	return nil, nil
+}
+
 func (db *DB) FindAll() (users []User, err error) {
 	query := `
         SELECT id, name, document_number, email

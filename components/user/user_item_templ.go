@@ -9,6 +9,17 @@ import "context"
 import "io"
 import "bytes"
 
+func getDetailsURL(user User) string {
+	return "api/user/" + user.ID + "/details"
+}
+
+func getUserDetailsID(user User, target bool) string {
+	if target {
+		return "#userDetails" + user.ID
+	}
+	return "userDetails" + user.ID
+}
+
 func UserItem(user User) templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, w io.Writer) (err error) {
 		templBuffer, templIsBuffer := w.(*bytes.Buffer)
@@ -48,7 +59,31 @@ func UserItem(user User) templ.Component {
 		if err != nil {
 			return err
 		}
-		_, err = templBuffer.WriteString("</td><td class=\"px-6 py-4 whitespace-no-wrap border-b border-gray-300\"><button class=\"text-blue-600 hover:text-blue-800 \"><i class=\"fas fa-edit\"></i></button><button class=\"text-red-600 hover:text-red-800\" hx-delete=\"api/user\" hx-target=\"closest tr\" hx-swap=\"outerHTML swap:500ms\" hx-confirm=\"Are you sure?\"><i class=\"fas fa-trash-alt\"></i></button><button class=\"text-green-600 hover:text-green-800\"><i class=\"fa-solid fa-notes-medical\"></i></button></td></tr>")
+		_, err = templBuffer.WriteString("</td><td class=\"px-6 py-4 whitespace-no-wrap border-b border-gray-300\"><button class=\"text-blue-600 hover:text-blue-800 \"><i class=\"fas fa-edit\"></i></button><button class=\"text-red-600 hover:text-red-800\" hx-delete=\"api/user\" hx-target=\"closest tr\" hx-swap=\"outerHTML swap:500ms\" hx-confirm=\"Are you sure?\"><i class=\"fas fa-trash-alt\"></i></button><button class=\"text-green-600 hover:text-green-800\" hx-get=\"")
+		if err != nil {
+			return err
+		}
+		_, err = templBuffer.WriteString(templ.EscapeString(getDetailsURL(user)))
+		if err != nil {
+			return err
+		}
+		_, err = templBuffer.WriteString("\" hx-target=\"")
+		if err != nil {
+			return err
+		}
+		_, err = templBuffer.WriteString(templ.EscapeString(getUserDetailsID(user, true)))
+		if err != nil {
+			return err
+		}
+		_, err = templBuffer.WriteString("\" hx-swap=\"outerHTML\"><div id=\"")
+		if err != nil {
+			return err
+		}
+		_, err = templBuffer.WriteString(templ.EscapeString(getUserDetailsID(user, false)))
+		if err != nil {
+			return err
+		}
+		_, err = templBuffer.WriteString("\"><i class=\"fa-solid fa-notes-medical\"></i></div></button></td></tr>")
 		if err != nil {
 			return err
 		}

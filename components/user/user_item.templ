@@ -1,5 +1,16 @@
 package user
 
+func getDetailsURL(user User) string {
+    return "api/user/" + user.ID + "/details"
+}
+
+func getUserDetailsID(user User, target bool) string {
+    if target {
+        return "#userDetails" + user.ID
+    }
+    return "userDetails" + user.ID
+}
+
 templ UserItem(user User) {
     <tr id={ user.ID }>
         <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-300">{ user.Name }</td>
@@ -11,8 +22,10 @@ templ UserItem(user User) {
             <button class="text-red-600 hover:text-red-800" hx-delete="api/user" hx-target="closest tr" hx-swap="outerHTML swap:500ms" hx-confirm="Are you sure?">
                 <i class="fas fa-trash-alt"></i>
             </button>
-            <button class="text-green-600 hover:text-green-800">
-                <i class="fa-solid fa-notes-medical"></i>
+            <button class="text-green-600 hover:text-green-800" hx-get={getDetailsURL(user)} hx-target={getUserDetailsID(user, true)} hx-swap="outerHTML">
+                <div id={getUserDetailsID(user, false)}>
+                    <i class="fa-solid fa-notes-medical"></i>
+                </div>
             </button>
         </td>
     </tr>

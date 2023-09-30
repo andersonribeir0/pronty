@@ -1,0 +1,9 @@
+package user
+
+script foo(details string) {
+    console.log(details);
+}
+
+templ UserDetails(details string) {
+	<p onClick={foo(details)}>{details}</p>
+}

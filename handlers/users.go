@@ -7,7 +7,6 @@ import (
 
 	"github.com/a-h/templ"
 	cmpt "github.com/andersonribeir0/ssr-htmx/components"
-	userComp "github.com/andersonribeir0/ssr-htmx/components/user"
 	usersComp "github.com/andersonribeir0/ssr-htmx/components/user"
 	"github.com/andersonribeir0/ssr-htmx/db"
 	"github.com/andersonribeir0/ssr-htmx/domain"
@@ -15,13 +14,21 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
+func HandleUserDetails(a *API, c echo.Context) error {
+	id := c.Param("id")
+	details := domain.GetUserDetails(a.db, id)
+	t := templ.Handler(usersComp.UserDetails(details))
+
+	return t.Component.Render(c.Request().Context(), c.Response().Writer)
+}
+
 func HandleUserList(a *API, c echo.Context) error {
 	users, err := domain.FindAllUsers(a.db)
 	if err != nil {
 		c.Error(err)
 	}
 
-	userListComp := userComp.UserList(users)
+	userListComp := usersComp.UserList(users)
 	t := templ.Handler(cmpt.Root(userListComp))
 
 	return t.Component.Render(c.Request().Context(), c.Response().Writer)
