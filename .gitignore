@@ -4,3 +4,5 @@ tmp/
 build/
 bin/
 node_modules/
+
+.air.toml
