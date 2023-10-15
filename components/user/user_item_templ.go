@@ -9,17 +9,6 @@ import "context"
 import "io"
 import "bytes"
 
-func getDetailsURL(user User) string {
-	return "api/user/" + user.ID + "/details"
-}
-
-func getUserDetailsID(user User, target bool) string {
-	if target {
-		return "#userDetails" + user.ID
-	}
-	return "userDetails" + user.ID
-}
-
 func UserItem(user User) templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, w io.Writer) (err error) {
 		templBuffer, templIsBuffer := w.(*bytes.Buffer)
@@ -33,7 +22,21 @@ func UserItem(user User) templ.Component {
 			var_1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, err = templBuffer.WriteString("<tr id=\"")
+		_, err = templBuffer.WriteString("<style>")
+		if err != nil {
+			return err
+		}
+		var_2 := `
+       .fade-me-out.htmx-swapping {
+        opacity: 0;
+        transition: opacity 1s ease-out;
+    } 
+    `
+		_, err = templBuffer.WriteString(var_2)
+		if err != nil {
+			return err
+		}
+		_, err = templBuffer.WriteString("</style><tr id=\"")
 		if err != nil {
 			return err
 		}
@@ -45,8 +48,8 @@ func UserItem(user User) templ.Component {
 		if err != nil {
 			return err
 		}
-		var var_2 string = user.Name
-		_, err = templBuffer.WriteString(templ.EscapeString(var_2))
+		var var_3 string = user.Name
+		_, err = templBuffer.WriteString(templ.EscapeString(var_3))
 		if err != nil {
 			return err
 		}
@@ -54,36 +57,21 @@ func UserItem(user User) templ.Component {
 		if err != nil {
 			return err
 		}
-		var var_3 string = user.Email
-		_, err = templBuffer.WriteString(templ.EscapeString(var_3))
+		var var_4 string = user.Email
+		_, err = templBuffer.WriteString(templ.EscapeString(var_4))
 		if err != nil {
 			return err
 		}
-		_, err = templBuffer.WriteString("</td><td class=\"px-6 py-4 whitespace-no-wrap border-b border-gray-300\"><button class=\"text-blue-600 hover:text-blue-800 \"><i class=\"fas fa-edit\"></i></button><button class=\"text-red-600 hover:text-red-800\" hx-delete=\"api/user\" hx-target=\"closest tr\" hx-swap=\"outerHTML swap:500ms\" hx-confirm=\"Are you sure?\"><i class=\"fas fa-trash-alt\"></i></button><button class=\"text-green-600 hover:text-green-800\" hx-get=\"")
+		_, err = templBuffer.WriteString("</td><td class=\"px-6 py-4 whitespace-no-wrap border-b border-gray-300\"><button class=\"text-blue-600 hover:text-blue-800 \"><i class=\"fas fa-edit\"></i></button><button class=\"text-red-600 hover:text-red-800\" hx-delete=\"api/user\" hx-target=\"closest tr\" hx-swap=\"outerHTML swap:500ms\" hx-confirm=\"Are you sure?\"><i class=\"fas fa-trash-alt\"></i></button><button class=\"text-green-600 hover:text-green-800\"><a href=\"")
 		if err != nil {
 			return err
 		}
-		_, err = templBuffer.WriteString(templ.EscapeString(getDetailsURL(user)))
+		var var_5 templ.SafeURL = templ.URL("user/" + user.ID + "/details")
+		_, err = templBuffer.WriteString(templ.EscapeString(string(var_5)))
 		if err != nil {
 			return err
 		}
-		_, err = templBuffer.WriteString("\" hx-target=\"")
-		if err != nil {
-			return err
-		}
-		_, err = templBuffer.WriteString(templ.EscapeString(getUserDetailsID(user, true)))
-		if err != nil {
-			return err
-		}
-		_, err = templBuffer.WriteString("\" hx-swap=\"outerHTML\"><div id=\"")
-		if err != nil {
-			return err
-		}
-		_, err = templBuffer.WriteString(templ.EscapeString(getUserDetailsID(user, false)))
-		if err != nil {
-			return err
-		}
-		_, err = templBuffer.WriteString("\"><i class=\"fa-solid fa-notes-medical\"></i></div></button></td></tr>")
+		_, err = templBuffer.WriteString("\" hx-target=\"test\" hx-swap=\"outerHTML swap:1s\"><i class=\"fa-solid fa-notes-medical\"></i></a></button></td></tr>")
 		if err != nil {
 			return err
 		}

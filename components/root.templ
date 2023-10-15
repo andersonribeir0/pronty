@@ -1,25 +1,26 @@
 package components
 
 templ Root(baseTemplate ...templ.Component) {
-    <html>
-        <head>
-            <meta charset="UTF-8" />
-            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-            <title>Welcome to pronty</title>
-            <script src="https://unpkg.com/htmx.org@1.9.4"
-                integrity="sha384-zUfuhFKKZCbHTY6aRR46gxiqszMk5tcHjsVFxnUo8VMus4kHGVdIYVbOYYNlKmHV"
-                crossorigin="anonymous"/>
-            <script src="https://unpkg.com/hyperscript.org@0.9.11"/>
-            <script src="https://kit.fontawesome.com/e906f40298.js" crossorigin="anonymous"></script>
-            <link rel="stylesheet" href="/static/output.css"/>
-            <link rel="stylesheet" href="/static/custom.css"/>
-        </head>
-
-        <body class="bg-gray-200">
-            for _, v := range baseTemplate {
-                {! v}
-            }
-        </body>
-
-    </html>
+	<html>
+		<head>
+			<meta charset="UTF-8"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+			<title>Welcome to pronty</title>
+			<script
+ 				src="https://unpkg.com/htmx.org@1.9.4"
+ 				integrity="sha384-zUfuhFKKZCbHTY6aRR46gxiqszMk5tcHjsVFxnUo8VMus4kHGVdIYVbOYYNlKmHV"
+ 				crossorigin="anonymous"
+			></script>
+			<script src="https://unpkg.com/hyperscript.org@0.9.11"></script>
+			<script src="https://kit.fontawesome.com/e906f40298.js" crossorigin="anonymous"></script>
+			<link rel="stylesheet" href="/static/output.css"/>
+			<link rel="stylesheet" href="/static/custom.css"/>
+		</head>
+		<body hx-boost class="bg-gray-200">
+			for _, v := range baseTemplate {
+				{! v }
+			}
+		</body>
+	</html>
 }
+

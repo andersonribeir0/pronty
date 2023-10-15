@@ -9,15 +9,16 @@ import "context"
 import "io"
 import "bytes"
 
-func foo(details string) templ.ComponentScript {
+func remove() templ.ComponentScript {
 	return templ.ComponentScript{
-		Name:     `__templ_foo_f26e`,
-		Function: `function __templ_foo_f26e(details){console.log(details);}`,
-		Call:     templ.SafeScript(`__templ_foo_f26e`, details),
+		Name: `__templ_remove_cbe8`,
+		Function: `function __templ_remove_cbe8(){var element = this.id;
+  element.remove();}`,
+		Call: templ.SafeScript(`__templ_remove_cbe8`),
 	}
 }
 
-func UserDetails(details string) templ.Component {
+func UserDetails(details UserDetail) templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, w io.Writer) (err error) {
 		templBuffer, templIsBuffer := w.(*bytes.Buffer)
 		if !templIsBuffer {
@@ -30,29 +31,115 @@ func UserDetails(details string) templ.Component {
 			var_1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		err = templ.RenderScriptItems(ctx, templBuffer, foo(details))
+		_, err = templBuffer.WriteString("<div class=\"bg-gray-100 py-16\"><div class=\"container mx-auto p-6 bg-white rounded-lg shadow-lg\"><div class=\"grid grid-cols-1 md:grid-cols-2 gap-4\"><div class=\"md:col-span-1\"><div class=\"flex justify-center\"></div><div class=\"mt-4 text-center\"><h2 class=\"text-2xl font-bold\">")
 		if err != nil {
 			return err
 		}
-		_, err = templBuffer.WriteString("<p onClick=\"")
+		var_2 := `John Doe`
+		_, err = templBuffer.WriteString(var_2)
 		if err != nil {
 			return err
 		}
-		var var_2 templ.ComponentScript = foo(details)
-		_, err = templBuffer.WriteString(var_2.Call)
+		_, err = templBuffer.WriteString("</h2><p class=\"text-gray-600\">")
 		if err != nil {
 			return err
 		}
-		_, err = templBuffer.WriteString("\">")
+		var_3 := `Software Developer`
+		_, err = templBuffer.WriteString(var_3)
 		if err != nil {
 			return err
 		}
-		var var_3 string = details
-		_, err = templBuffer.WriteString(templ.EscapeString(var_3))
+		_, err = templBuffer.WriteString("</p></div></div><div class=\"md:col-span-1\"><div class=\"bg-gray-200 p-4 rounded-lg\"><h3 class=\"text-lg font-semibold mb-4\">")
 		if err != nil {
 			return err
 		}
-		_, err = templBuffer.WriteString("</p>")
+		var_4 := `User Details`
+		_, err = templBuffer.WriteString(var_4)
+		if err != nil {
+			return err
+		}
+		_, err = templBuffer.WriteString("</h3><div class=\"flex justify-between mb-2\"><span class=\"text-gray-600\">")
+		if err != nil {
+			return err
+		}
+		var_5 := `Email:`
+		_, err = templBuffer.WriteString(var_5)
+		if err != nil {
+			return err
+		}
+		_, err = templBuffer.WriteString("</span><span>")
+		if err != nil {
+			return err
+		}
+		var_6 := `john.doe@email.com`
+		_, err = templBuffer.WriteString(var_6)
+		if err != nil {
+			return err
+		}
+		_, err = templBuffer.WriteString("</span></div><div class=\"flex justify-between mb-2\"><span class=\"text-gray-600\">")
+		if err != nil {
+			return err
+		}
+		var_7 := `Phone:`
+		_, err = templBuffer.WriteString(var_7)
+		if err != nil {
+			return err
+		}
+		_, err = templBuffer.WriteString("</span><span>")
+		if err != nil {
+			return err
+		}
+		var_8 := `(123) 456-7890`
+		_, err = templBuffer.WriteString(var_8)
+		if err != nil {
+			return err
+		}
+		_, err = templBuffer.WriteString("</span></div><div class=\"flex justify-between mb-2\"><span class=\"text-gray-600\">")
+		if err != nil {
+			return err
+		}
+		var_9 := `Location:`
+		_, err = templBuffer.WriteString(var_9)
+		if err != nil {
+			return err
+		}
+		_, err = templBuffer.WriteString("</span><span>")
+		if err != nil {
+			return err
+		}
+		var_10 := `New York, USA`
+		_, err = templBuffer.WriteString(var_10)
+		if err != nil {
+			return err
+		}
+		_, err = templBuffer.WriteString("</span></div><div class=\"flex justify-between\"><span class=\"text-gray-600\">")
+		if err != nil {
+			return err
+		}
+		var_11 := `Joined:`
+		_, err = templBuffer.WriteString(var_11)
+		if err != nil {
+			return err
+		}
+		_, err = templBuffer.WriteString("</span><span>")
+		if err != nil {
+			return err
+		}
+		var_12 := `January 1, 2022`
+		_, err = templBuffer.WriteString(var_12)
+		if err != nil {
+			return err
+		}
+		_, err = templBuffer.WriteString("</span></div><div class=\"mt-4\"><a href=\"/\" class=\"text-blue-500 hover:underline\">")
+		if err != nil {
+			return err
+		}
+		var_13 := `Go Back`
+		_, err = templBuffer.WriteString(var_13)
+		if err != nil {
+			return err
+		}
+		_, err = templBuffer.WriteString("</a></div></div></div></div></div></div><div id=\"test\"></div>")
 		if err != nil {
 			return err
 		}

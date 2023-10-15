@@ -2,23 +2,23 @@ package user
 
 templ UserForm(formTarget string) {
 	<div id="userForm" class="container mx-auto mt-8">
-		<form class="mt-4" id="addUserForm" action="/user/add" method="POST" hx-post="api/user/add" hx-target={formTarget} hx-swap="afterbegin">
+		<form class="mt-4" id="addUserForm" action="/user/add" method="POST" hx-post="api/user/add" hx-target={ formTarget } hx-swap="afterbegin">
 			<div class="mb-4">
 				<label for="name" class="block text-gray-700 text-sm font-bold mb-2">Name</label>
-				<input type="text" id="name" name="name" class="form-input w-full rounded-md shadow-sm" placeholder="Name" required />
+				<input type="text" id="name" name="name" class="form-input w-full rounded-md shadow-sm" placeholder="Name" required/>
 			</div>
 			<div class="mb-4">
 				<label for="documentNumber" class="block text-gray-700 text-sm font-bold mb-2">Document Number</label>
-				<input type="text" id="documentNumber" name="documentNumber" class="form-input w-full rounded-md shadow-sm" placeholder="123-456-789-90" required />
+				<input type="text" id="documentNumber" name="documentNumber" class="form-input w-full rounded-md shadow-sm" placeholder="123-456-789-90" required/>
 			</div>
 			<div class="mb-4">
 				<label for="email" class="block text-gray-700 text-sm font-bold mb-2">Email</label>
-				<input type="email" id="email" name="email" class="form-input w-full rounded-md shadow-sm" placeholder="john@example.com" required />
+				<input type="email" id="email" name="email" class="form-input w-full rounded-md shadow-sm" placeholder="john@example.com" required/>
 			</div>
 			<div class="text-center">
 				<div class="container mx-auto px-32 py-2">
 					<div class="flex justify-between">
-						<button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded w-1/2">Add User</button>
+						<button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded w-1/2">Add</button>
 						<a href="/" class="bg-gray-300 hover:bg-gray-400 text-gray-700 font-bold py-1 px-4 rounded w-1/2 inline-block">Cancel</a>
 					</div>
 				</div>
@@ -26,3 +26,4 @@ templ UserForm(formTarget string) {
 		</form>
 	</div>
 }
+

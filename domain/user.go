@@ -24,11 +24,13 @@ func FindAllUsers(ds *db.DB) (userList []user.User, err error) {
 	return userList, nil
 }
 
-func GetUserDetails(ds *db.DB, id string) string {
-	user, err := ds.FindUserByID(id)
+func GetUserDetails(ds *db.DB, id string) *user.UserDetail {
+	result, err := ds.FindUserByID(id)
 	if err != nil {
-		return "n/a"
+		return nil
 	}
-
-	return strconv.FormatInt(user.DocumentNumber, 10)
+	return &user.UserDetail{
+		ID:      result.ID,
+		Details: strconv.FormatInt(result.DocumentNumber, 10),
+	}
 }

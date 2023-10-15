@@ -61,7 +61,7 @@ func UserForm(formTarget string) templ.Component {
 		if err != nil {
 			return err
 		}
-		var_5 := `Add User`
+		var_5 := `Add`
 		_, err = templBuffer.WriteString(var_5)
 		if err != nil {
 			return err

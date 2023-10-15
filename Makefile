@@ -3,7 +3,7 @@ generate:
 
 build: generate
 	@NODE_ENV=production npx tailwindcss build -o ./misc/output.css
-	@go build -o ./bin/app
+	@go build -gcflags='all=-N -l' -o ./bin/app
 
 run: build
 	@./bin/app 

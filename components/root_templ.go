@@ -31,7 +31,7 @@ func Root(baseTemplate ...templ.Component) templ.Component {
 		if err != nil {
 			return err
 		}
-		_, err = templBuffer.WriteString("</title><script src=\"https://unpkg.com/htmx.org@1.9.4\" integrity=\"sha384-zUfuhFKKZCbHTY6aRR46gxiqszMk5tcHjsVFxnUo8VMus4kHGVdIYVbOYYNlKmHV\" crossorigin=\"anonymous\"></script><script src=\"https://unpkg.com/hyperscript.org@0.9.11\"></script><script src=\"https://kit.fontawesome.com/e906f40298.js\" crossorigin=\"anonymous\">")
+		_, err = templBuffer.WriteString("</title><script src=\"https://unpkg.com/htmx.org@1.9.4\" integrity=\"sha384-zUfuhFKKZCbHTY6aRR46gxiqszMk5tcHjsVFxnUo8VMus4kHGVdIYVbOYYNlKmHV\" crossorigin=\"anonymous\">")
 		if err != nil {
 			return err
 		}
@@ -40,7 +40,25 @@ func Root(baseTemplate ...templ.Component) templ.Component {
 		if err != nil {
 			return err
 		}
-		_, err = templBuffer.WriteString("</script><link rel=\"stylesheet\" href=\"/static/output.css\"><link rel=\"stylesheet\" href=\"/static/custom.css\"></head><body class=\"bg-gray-200\">")
+		_, err = templBuffer.WriteString("</script><script src=\"https://unpkg.com/hyperscript.org@0.9.11\">")
+		if err != nil {
+			return err
+		}
+		var_4 := ``
+		_, err = templBuffer.WriteString(var_4)
+		if err != nil {
+			return err
+		}
+		_, err = templBuffer.WriteString("</script><script src=\"https://kit.fontawesome.com/e906f40298.js\" crossorigin=\"anonymous\">")
+		if err != nil {
+			return err
+		}
+		var_5 := ``
+		_, err = templBuffer.WriteString(var_5)
+		if err != nil {
+			return err
+		}
+		_, err = templBuffer.WriteString("</script><link rel=\"stylesheet\" href=\"/static/output.css\"><link rel=\"stylesheet\" href=\"/static/custom.css\"></head><body hx-boost class=\"bg-gray-200\">")
 		if err != nil {
 			return err
 		}

@@ -14,12 +14,28 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
+func HandleGetUserItem(a *API, c echo.Context) error {
+	id := c.Param("id")
+
+	result, err := a.db.FindUserByID(id)
+	if err != nil {
+		panic(err)
+	}
+
+	t := templ.Handler(usersComp.UserItem(usersComp.User{
+		ID:    result.ID,
+		Name:  result.Name,
+		Email: result.Email,
+	}))
+
+	return t.Component.Render(c.Request().Context(), c.Response().Writer)
+}
+
 func HandleUserDetails(a *API, c echo.Context) error {
 	id := c.Param("id")
 	details := domain.GetUserDetails(a.db, id)
-	t := templ.Handler(usersComp.UserDetails(details))
 
-	return t.Component.Render(c.Request().Context(), c.Response().Writer)
+	return PartialHandler(usersComp.UserDetails(*details))(a, c)
 }
 
 func HandleUserList(a *API, c echo.Context) error {

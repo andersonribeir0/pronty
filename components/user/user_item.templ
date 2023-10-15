@@ -1,32 +1,29 @@
 package user
 
-func getDetailsURL(user User) string {
-    return "api/user/" + user.ID + "/details"
-}
-
-func getUserDetailsID(user User, target bool) string {
-    if target {
-        return "#userDetails" + user.ID
-    }
-    return "userDetails" + user.ID
-}
-
 templ UserItem(user User) {
-    <tr id={ user.ID }>
-        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-300">{ user.Name }</td>
-        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-300">{ user.Email }</td>
-        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-300">
-            <button class="text-blue-600 hover:text-blue-800 ">
-                <i class="fas fa-edit"></i>
-            </button>
-            <button class="text-red-600 hover:text-red-800" hx-delete="api/user" hx-target="closest tr" hx-swap="outerHTML swap:500ms" hx-confirm="Are you sure?">
-                <i class="fas fa-trash-alt"></i>
-            </button>
-            <button class="text-green-600 hover:text-green-800" hx-get={getDetailsURL(user)} hx-target={getUserDetailsID(user, true)} hx-swap="outerHTML">
-                <div id={getUserDetailsID(user, false)}>
-                    <i class="fa-solid fa-notes-medical"></i>
-                </div>
-            </button>
-        </td>
-    </tr>
+    <style>
+       .fade-me-out.htmx-swapping {
+        opacity: 0;
+        transition: opacity 1s ease-out;
+    } 
+    </style>
+	<tr id={ user.ID }>
+		<td class="px-6 py-4 whitespace-no-wrap border-b border-gray-300">{ user.Name }</td>
+		<td class="px-6 py-4 whitespace-no-wrap border-b border-gray-300">{ user.Email }</td>
+		<td class="px-6 py-4 whitespace-no-wrap border-b border-gray-300">
+			<button class="text-blue-600 hover:text-blue-800 ">
+				<i class="fas fa-edit"></i>
+			</button>
+			<button class="text-red-600 hover:text-red-800" hx-delete="api/user" hx-target="closest tr" hx-swap="outerHTML swap:500ms" hx-confirm="Are you sure?">
+				<i class="fas fa-trash-alt"></i>
+			</button>
+			<button class="text-green-600 hover:text-green-800" >
+            <a href={ templ.URL("user/"+ user.ID + "/details") } hx-target="test" hx-swap="outerHTML swap:1s">
+				<i class="fa-solid fa-notes-medical"></i>
+            </a>
+			</button>
+		</td>
+	</tr>
+	
 }
+
